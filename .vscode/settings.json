@@ -4,6 +4,7 @@
     "PLATFORMIO_CALLER": "vscode"
   },
   "files.associations": {
-    "stdint.h": "c"
+    "stdint.h": "c",
+    "stdio.h": "c"
   }
 }

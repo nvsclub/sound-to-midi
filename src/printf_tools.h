@@ -4,6 +4,7 @@
 
 
 #include <stdio.h>
+#include "printf_tools.h"
 
 static int uart_putchar(char c, FILE *stream);
 
