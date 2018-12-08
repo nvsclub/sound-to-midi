@@ -5,6 +5,10 @@
   },
   "files.associations": {
     "stdint.h": "c",
-    "stdio.h": "c"
+    "stdio.h": "c",
+    "pgmspace.h": "c",
+    "io.h": "c",
+    "mem_flash_test.h": "c",
+    "interrupt.h": "c"
   }
 }
