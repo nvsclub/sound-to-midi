@@ -49,11 +49,13 @@ void printBits(size_t const size, void const * const ptr){
   }
 
 // CONVERT MICROPHONE INPUT INTO MIDI MESSAGE
-uint16_t MIDI_interp(uint8_t mic_input){
+uint16_t MIDI_interp(uint16_t mic_input){
 
-  uint8_t control_loop;
+  uint16_t midi_msg;
+  // Between 0 and 100
+  if (mic_input > 0x0000 && mic_input < 0x0064){
 
-  for
+  }
 
 
 
