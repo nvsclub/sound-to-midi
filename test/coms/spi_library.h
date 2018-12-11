@@ -16,6 +16,8 @@
 //SPSR  - SPI Status Register
 //SPIE  - SPI INTERRUPT ENABLE
 
+volatile uint8_t spi_address;
+volatile uint8_t spi_databuffer[BUFFER_SIZE] = {0};
 
 // SETS INITIALIZATION FOR MASTER DEVICE
 void spi_init_master (void){
@@ -39,7 +41,7 @@ void spi_init_slave (void){
 }
 
 // SENDS DATA TO REGISTER - MASTER AND SLAVE
-void spi_trans (unsigned char data){
+void spi_trans (uint8_t data){
 
   SPDR = data;                  // Puts data on SPI register
   while(!(SPSR & (1<<SPIF)));   // Waits for Data Transfer
@@ -48,4 +50,18 @@ void spi_trans (unsigned char data){
 // RECEIVES DATA FROM REGISTER - MASTER AND SLAVE
 unsigned char spi_receiv(void){
   return SPDR;
+}
+
+// MANAGE DATA RECEIVED FROM SPI CONNECTION
+void spi_manage(uint8_t data){
+
+  // Stores data in buffer
+  if (spi_address < BUFFER_SIZE){
+    spi_databuffer[spi_address] = data;
+    spi_address++;
+  }
+  else{
+    spi_databuffer[spi_address] = data;
+    spi_address = 0;
+  }
 }

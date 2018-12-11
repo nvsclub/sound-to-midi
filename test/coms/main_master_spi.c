@@ -19,7 +19,7 @@ int main (void){
   init_printf_tools();  // Initialize Prints
 
   while(1){
-    data = true;
+    data = 0x01;
     spi_trans(data); // Sends data (in this case x)
     data_of = spi_receiv();
     printBits(sizeof(char), &data);

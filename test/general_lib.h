@@ -16,8 +16,7 @@
 
 // GENERAL CONFIGURATION DATA
 #define ACK 0x7E
-#define true 0x01
-#define false 0x00
+#define BUFFER_SIZE 0xFF
 
 // DATA TO PRINT VALUES IN BITS
 #define BYTE_TO_BINARY_PATTERN "%c%c%c%c%c%c%c%c"
@@ -49,73 +48,49 @@ void printBits(size_t const size, void const * const ptr){
   }
 
 // CONVERT MICROPHONE INPUT INTO MIDI MESSAGE
-uint16_t MIDI_interp(uint16_t mic_input){
+uint16_t MIDI_interp(uint8_t mic_input){
 
   uint16_t midi_msg;
 
-  // Microphone Value Between 0 and 100
-  if (mic_input > 0x0000 && mic_input <= 0x0064){
+  // Microphone Value Between 0 and 35
+  if (mic_input > 0x00 && mic_input <= 0x23){
     midi_msg = (0x90 << 8) | 0x00;
     return midi_msg;
   }
 
-  // Microphone Value Between 100 and 200
-  else if (mic_input > 0x0064 && mic_input <= 0x00C8){
+  // Microphone Value Between 35 and 70
+  else if (mic_input > 0x23 && mic_input <= 0x46){
     midi_msg = (0x90 << 8) | 0x01;
     return midi_msg;
   }
 
-  // Microphone Value Between 200 and 300
-  else if (mic_input > 0x00C8 && mic_input <= 0x012C){
+  // Microphone Value Between 50 and 105
+  else if (mic_input > 0x46 && mic_input <= 0x69){
     midi_msg = (0x90 << 8) | 0x02;
     return midi_msg;
   }
 
-  // Microphone Value Between 300 and 400
-  else if (mic_input > 0x012C && mic_input <= 0x0190){
+  // Microphone Value Between 105 and 140
+  else if (mic_input > 0x69 && mic_input <= 0x8C){
     midi_msg = (0x90 << 8) | 0x03;
     return midi_msg;
   }
 
-  // Microphone Value Between 400 and 500
-  else if (mic_input > 0x0190 && mic_input <= 0x01F4){
+  // Microphone Value Between 140 and 175
+  else if (mic_input > 0x8C && mic_input <= 0xAF){
     midi_msg = (0x90 << 8) | 0x04;
     return midi_msg;
   }
 
-  // Microphone Value Between 500 and 600
-  else if (mic_input > 0x01F4 && mic_input <= 0x0258){
+  // Microphone Value Between 175 and 210
+  else if (mic_input > 0xAF && mic_input <= 0xD2){
     midi_msg = (0x90 << 8) | 0x05;
     return midi_msg;
   }
 
-  // Microphone Value Between 600 and 700
-  else if (mic_input > 0x0258 && mic_input <= 0x02BC){
+  // Microphone Value Between 210 and 245 (256)
+  else if (mic_input > 0xD2 && mic_input <= 0xFF){
     midi_msg = (0x90 << 8) | 0x06;
-    return midi_msg;
-  }
-
-  // Microphone Value Between 700 and 800
-  else if (mic_input > 0x02BC && mic_input <= 0x0320){
-    midi_msg = (0x90 << 8) | 0x07;
-    return midi_msg;
-  }
-
-  // Microphone Value Between 800 and 900
-  else if (mic_input > 0x0320 && mic_input <= 0x0384){
-    midi_msg = (0x90 << 8) | 0x08;
-    return midi_msg;
-  }
-
-  // Between 900 and 1000
-  else if (mic_input > 0x0384 && mic_input <= 0x03E8){
-    midi_msg = (0x90 << 8) | 0x09;
-    return midi_msg;
-  }
-
-  // Microphone Value Between 1000 and 1023
-  else if (mic_input > 0x03E8 && mic_input <= 0x03FF){
-    midi_msg = (0x90 << 8) | 0x0A;
     return midi_msg;
   }
 
@@ -123,32 +98,31 @@ uint16_t MIDI_interp(uint16_t mic_input){
     midi_msg = 0x0000;
     return midi_msg;
   }
-
 }
 
-
 // TURN ON LEDS ACCORDING TO MIDI MESSAGE
-void turnLeds(uint16_t midi_msg){
+void turnLeds(uint8_t data){
 
-  // Control defines if Led turns Off or On
-  uint8_t control = (uint8_t)((midi_msg & 0xFF00) >> 8);
-
-  if (control == 0x90){
-    PORTD |= (uint8_t)((midi_msg & 0x00FF));
+  if ((data == 0x09) || (data == 0x08)){
+    i2c_databuffer[0] = data;
     return;
   }
 
-  else if (control == 0x80){
-    PORTD &= ~((uint8_t)(midi_msg & 0x00FF));
-    return;
+  else{
+    if (i2c_databuffer[0] == 0x90){
+      PORTD |= data;
+      i2c_databuffer[0] = 0;
+      return;
+    }
+
+    else if (i2c_databuffer[0] == 0x80){
+      PORTD &= ~data;
+      i2c_databuffer[0] = 0;
+      return;
+    }
+    else{
+      printf("ERROR in TURN LEDS");
+      return;
+    }
   }
-
-
-
-
-
-
-
-
-
 }

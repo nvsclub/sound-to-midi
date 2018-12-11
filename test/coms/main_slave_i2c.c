@@ -5,7 +5,7 @@ ISR(TWI_vect){
 
   uint8_t data;
 
-  // REQUEST TO RECEIVE DATA
+  // REQUEST TO ACKNOWLEDGE
   if (((TWSR & TW_NO_INFO) == TW_SR_SLA_ACK) || ((TWSR & TW_NO_INFO) == TW_SR_ARB_LOST_SLA_ACK)){
     TWCR |= (1<<TWIE)|(1<<TWINT)|(1<<TWEA)|(1<<TWEN);
   }
@@ -16,6 +16,7 @@ ISR(TWI_vect){
     i2c_slave_trans(data);
   }
 
+  // REQUEST TO RECEIVE DATA
   else if ((TWSR & TW_NO_INFO) == TW_SR_DATA_ACK){
     data = TWDR;
     i2c_slave_receive(data);

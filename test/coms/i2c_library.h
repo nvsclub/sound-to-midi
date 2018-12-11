@@ -1,4 +1,3 @@
-
 #include "general_lib.h"
 
 #define F_SCL 100000UL
@@ -12,7 +11,7 @@
 
 volatile uint8_t i2c_address_send;
 volatile uint8_t i2c_address_receiv;
-volatile uint8_t i2c_databuffer[0xFF] = {0};
+volatile uint8_t i2c_databuffer[0x01] = {0};
 // DEFINES BUFFER VARIABLES TO READ AND WRITE DATA
 
 
@@ -186,9 +185,16 @@ void i2c_slave_receive(uint8_t data){
     TWCR |= (1<<TWIE) | (1<<TWINT) | (1<<TWEA) | (1<<TWEN);
   }
 
-  // IF BUFFER FULL SENDS NO ACKNOWLEDGE MESSAGE
+  else{
+    i2c_databuffer[i2c_address_receiv] = data;
+    i2c_address_receiv = 0;
+    TWCR |= (1<<TWIE) | (1<<TWINT) | (1<<TWEA) | (1<<TWEN);
+  }
+
+  /*
   else{
     TWCR &= ~(1<<TWEA);
     TWCR |= (1<<TWIE) | (1<<TWINT) |(1<<TWEN);
+  */
   }
 }
