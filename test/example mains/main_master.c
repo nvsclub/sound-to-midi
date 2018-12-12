@@ -1,6 +1,54 @@
 #include "general_lib.h"
 #include "spi_library.h"
 #include "i2c_library.h"
+#include "microphone.h"
+
+
+#define T1COUNT 65536-2500
+// 0.1s = 25000 clock cycles @ 16MHz/64
+
+uint16_t volatile timer = 0;
+uint8_t volatile toggle = 0;
+
+void init_timer(){
+  // Disable Interrupts
+	cli();
+
+  // Normal Mode
+	TCCR1A=0x00;
+  // Stop timer
+	TCCR1B=0x00;
+  // Setup timer counter
+	TCNT1 = T1COUNT;
+
+  // Activate interrupts
+	TIMSK1=0x01;
+	CLKPR=0x00;
+
+  // Enable interrupts
+	sei();
+
+  // Start the timer counter
+	TCCR1B = 0b00000011;
+
+}
+
+ISR(TIMER1_OVF_vect){
+	// Reload the number of cycles needed
+  TCNT1=T1COUNT;
+	if (65535!=timer) {
+		timer++;
+    if(toggle == 0)
+      toggle = 1;
+    else
+      toggle = 0;
+
+	}
+
+	else timer=0;
+
+}
+
 
 ISR(TWI_vect){
 
@@ -45,25 +93,34 @@ int main(void){
   UCSR0A = 0;
   UCSR0B = (1<<TXEN0);
   UCSR0C = (3<<UCSZ00);
+  
   _delay_ms(500);
 
   // MAIN INITIALIZATIONS
   spi_init_master();    // SPI Initialization as master
   i2c_init_slave();     // I2C Initialization as slave
   init_printf_tools();  // Initialize Prints
-  sei();                // Initializes Interrupt
+  init_adc();           // Initialize ADC
+  init_timer();         // Initialize timers
+  // REDUNDANT IN THE TIMERS - sei();                // Initializes Interrupt
+
 
   uint8_t microphone_msg;
+  uint8_t pr_toggle = 0;
 
   while(1){
+    // Toggle - manage the sampling frequency
+    if(pr_toggle != toggle){
+      pr_toggle = toggle;
+ 
+      // Get message from microphone
+      microphone_msg = read_adc();
 
-    // Get message from microphone
+      // Transfer microphone message using SPI
+      spi_trans(microphone_msg);
 
-
-    // Transfer microphone message using SPI
-    spi_trans(microphone_msg);
+    }
 
   }
-
 
 }
