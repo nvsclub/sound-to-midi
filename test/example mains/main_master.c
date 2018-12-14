@@ -1,7 +1,4 @@
 #include "general_lib.h"
-#include "spi_library.h"
-#include "i2c_library.h"
-#include "microphone.h"
 
 
 #define T1COUNT 65536-2500
@@ -42,9 +39,7 @@ ISR(TIMER1_OVF_vect){
       toggle = 1;
     else
       toggle = 0;
-
 	}
-
 	else timer=0;
 
 }
@@ -53,6 +48,7 @@ ISR(TIMER1_OVF_vect){
 ISR(TWI_vect){
 
   uint8_t data; // Temporary variable to store data
+  ATOMIC_BLOCK(ATOMIC_FORCEON){
 
   // REQUEST TO ACKNOWLEDGE
   if (((TWSR & TW_NO_INFO) == TW_SR_SLA_ACK) || ((TWSR & TW_NO_INFO) == TW_SR_ARB_LOST_SLA_ACK)){
@@ -68,10 +64,12 @@ ISR(TWI_vect){
   else if ((TWSR & TW_NO_INFO) == TW_SR_DATA_ACK){
     data = TWDR;
     turnLeds(data);
+    i2c_slave_receive(data);
   }
 
   else{
     TWCR |= (1<<TWIE) | (1<<TWEA) | (1<<TWEN);
+  }
   }
 }
 
@@ -93,7 +91,7 @@ int main(void){
   UCSR0A = 0;
   UCSR0B = (1<<TXEN0);
   UCSR0C = (3<<UCSZ00);
-  
+
   _delay_ms(500);
 
   // MAIN INITIALIZATIONS
@@ -107,20 +105,28 @@ int main(void){
 
   uint8_t microphone_msg;
   uint8_t pr_toggle = 0;
+  uint8_t count = 0;
+  i2c_address_receiv = 0;
 
+  DDRD = 0xFF;
+
+  _delay_ms(1000);
   while(1){
     // Toggle - manage the sampling frequency
-    if(pr_toggle != toggle){
-      pr_toggle = toggle;
- 
-      // Get message from microphone
-      microphone_msg = read_adc();
+    if (count < 50){
+      if(pr_toggle != toggle){
+        pr_toggle = toggle;
 
-      // Transfer microphone message using SPI
-      spi_trans(microphone_msg);
+        // Get message from microphone
+        microphone_msg = read_adc(0);
+        printBits(sizeof(uint8_t), &microphone_msg);
 
+        // Transfer microphone message using SPI
+        spi_trans(0xAA);
+        count++;
+        _delay_ms(4000);
+      }
     }
-
   }
 
 }

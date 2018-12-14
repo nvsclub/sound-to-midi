@@ -5,7 +5,8 @@
 ISR(SPI_STC_vect){
   unsigned char data;
   data = spi_receiv();
-  spi_trans(ACK);
+  _delay_us(5);
+  spi_trans(0xA3);
   printBits(sizeof(char), &data);
 }
 

@@ -1,4 +1,3 @@
-
 #define F_SCL 100000UL
 #define Prescaler 1
 #define TWBR_val ((((F_CPU / F_SCL) / Prescaler) - 16) / 2)
@@ -10,7 +9,7 @@
 
 volatile uint8_t i2c_address_send;
 volatile uint8_t i2c_address_receiv;
-volatile uint8_t i2c_databuffer[0x01] = {0};
+volatile uint8_t i2c_databuffer[0xFF] = {0};
 // DEFINES BUFFER VARIABLES TO READ AND WRITE DATA
 
 
@@ -194,5 +193,7 @@ void i2c_slave_receive(uint8_t data){
   else{
     TWCR &= ~(1<<TWEA);
     TWCR |= (1<<TWIE) | (1<<TWINT) |(1<<TWEN);
-  */
+
   }
+  */
+}

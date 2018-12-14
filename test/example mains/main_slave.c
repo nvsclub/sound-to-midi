@@ -1,11 +1,10 @@
 #include "general_lib.h"
-#include "spi_library.h"
-#include "i2c_library.h"
 
 ISR(SPI_STC_vect){
   unsigned char data;
   data = spi_receiv();
   spi_manage(data);
+  printBits(sizeof(uint8_t), &data);
 }
 
 //  MODULE FUNCTION
@@ -37,39 +36,54 @@ int main (void){
   spi_address = 0;      // Sets initial address for receiving buffer
   uint16_t midi_msg;    // Will contain MIDI Message to Send
   uint8_t results;      // Results from communication protocols
+  uint8_t count;
+  uint8_t split;
+
+  count = 0;
+  spi_address = 0;
+  split = 0;
 
   while(1){
 
     for(uint8_t i = 0; i < 0xFF; i++){
 
-      if (spi_databuffer[i] != 0){
+      if (count < 40){
+        if (spi_databuffer[i] != 0){
 
-        // Get MIDI MESSAGE
-        midi_msg = MIDI_interp(spi_databuffer[i]);
-        spi_databuffer[i] = 0;
+          results = spi_databuffer[i];
 
-        // Start i2c protocol to send 1st byte of MIDI message
-        results = i2c_start(I2C_ADDRESS & I2C_WRITE, 0x00);
-        printf("RESULTS_START: ")
-        printBits(sizeof(char), &results);
+          // Get MIDI MESSAGE
+          midi_msg = MIDI_interp(results);
 
-        // Send 1st byte of MIDI message
-        results = i2c_write(((midi_msg & 0xFF00) >> 8));
-        printf("RESULTS_WRITE_1: ");
-        printBits(sizeof(char), &results);
+          // Start i2c protocol to send 1st byte of MIDI message
+          results = i2c_start(I2C_ADDRESS & I2C_WRITE, 0x00);
+          printf("RESULTS_START: ");
+          printBits(sizeof(char), &results);
 
-        // (Re)Start i2c protocol to send 2nd byte of MIDI message
-        results = i2c_start(I2C_ADDRESS & I2C_WRITE, 0x01);
-        printf("RESULTS_START: ")
-        printBits(sizeof(char), &results);
+          // Send 1st byte of MIDI message
+          split = ((midi_msg & 0xFF00) >> 8);
+          results = i2c_write(split);
+          printf("RESULTS_WRITE_1: ");
+          printBits(sizeof(char), &split);
+          i2c_stop_master();
 
-        // Send 2nd byte of MIDI message
-        results = i2c_write(((midi_msg & 0x00FF) >> 8));
-        printf("RESULTS_WRITE_2: ");
-        printBits(sizeof(char), &results);
+          // (Re)Start i2c protocol to send 2nd byte of MIDI message
+          results = i2c_start(I2C_ADDRESS & I2C_WRITE, 0x00);
+          printf("RESULTS_START_2: ");
+          printBits(sizeof(char), &results);
 
-        // Stop Transmission
-        i2c_stop_master();
+          // Send 2nd byte of MIDI message
+          split = (midi_msg & 0x00FF);
+          results = i2c_write(((midi_msg & 0x00FF) >> 8));
+          printf("RESULTS_WRITE_2: ");
+          printBits(sizeof(char), &split);
+
+          // Stop Transmission
+          i2c_stop_master();
+          _delay_ms(2000);
+          count++;
+
+        }
       }
     }
   }

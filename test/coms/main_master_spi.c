@@ -19,10 +19,10 @@ int main (void){
   init_printf_tools();  // Initialize Prints
 
   while(1){
-    data = 0x01;
+    data = 0x3A;
     spi_trans(data); // Sends data (in this case x)
+    _delay_us(20);
     data_of = spi_receiv();
-    printBits(sizeof(char), &data);
     printBits(sizeof(char), &data_of);
     _delay_ms(2000);
   }

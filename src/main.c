@@ -1,17 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "general_lib.h"
 
-#include <avr/io.h>
-#include <avr/interrupt.h>
-#include <util/delay.h>
-
-//#include "mem_sram_test.h"
-#include "mem_flash_test.h"
-#include "microphone.h"
-#include "printf_tools.h"
-
-#define	baud 9600UL
-#define baud_gen ((F_CPU/(16*baud))-1)
 
 #define T1COUNT 65536-2500
 // 0.1s = 25000 clock cycles @ 16MHz/64
@@ -19,7 +7,7 @@
 uint16_t volatile timer = 0;
 uint8_t volatile toggle = 0;
 
-void setup_timer(){
+void init_timer(){
   // Disable Interrupts
 	cli();
 
@@ -51,38 +39,94 @@ ISR(TIMER1_OVF_vect){
       toggle = 1;
     else
       toggle = 0;
-
 	}
-
 	else timer=0;
 
 }
 
-  while(1){
 
-  printf("\n INITIALIZING \n");
+ISR(TWI_vect){
 
-	UBRR0 = baud_gen;
+  uint8_t data; // Temporary variable to store data
+  ATOMIC_BLOCK(ATOMIC_FORCEON){
 
+  // REQUEST TO ACKNOWLEDGE
+  if (((TWSR & TW_NO_INFO) == TW_SR_SLA_ACK) || ((TWSR & TW_NO_INFO) == TW_SR_ARB_LOST_SLA_ACK)){
+    TWCR |= (1<<TWIE)|(1<<TWINT)|(1<<TWEA)|(1<<TWEN);
+  }
+  // REQUEST TO TRANSMITT DATA
+  else if (((TWSR & TW_NO_INFO) == TW_ST_SLA_ACK) || ((TWSR & TW_NO_INFO) == TW_SR_ARB_LOST_SLA_ACK)){
+    data = TWDR;
+    i2c_slave_trans(data);
+  }
+
+  // REQUEST TO RECEIVE DATA
+  else if ((TWSR & TW_NO_INFO) == TW_SR_DATA_ACK){
+    data = TWDR;
+    turnLeds(data);
+    i2c_slave_receive(data);
+  }
+
+  else{
+    TWCR |= (1<<TWIE) | (1<<TWEA) | (1<<TWEN);
+  }
+  }
+}
+
+//  MODULE FUNCTION
+//  This Module will collect data from microphone
+//  and then send it using spi protocol
+//  When called (interrupted) it will receve a MIDI message by
+//  I2C protocol and update LEDS's according to message
+
+//  THIS MODULE IS:
+//  SPI Master
+//  I2C Slave
+
+// MAIN FUNCTION
+int main(void){
+
+  // INITIALIZE SERIAL PRINT REQUEIREMENTS
+  UBRR0 = baudgen;
   UCSR0A = 0;
   UCSR0B = (1<<TXEN0);
-	UCSR0C = (3<<UCSZ00);
+  UCSR0C = (3<<UCSZ00);
 
   _delay_ms(500);
 
-  init_printf_tools();
-  setup_timer();
-  init_adc();
+  // MAIN INITIALIZATIONS
+  spi_init_master();    // SPI Initialization as master
+  i2c_init_slave();     // I2C Initialization as slave
+  init_printf_tools();  // Initialize Prints
+  init_adc();           // Initialize ADC
+  init_timer();         // Initialize timers
+  // REDUNDANT IN THE TIMERS - sei();                // Initializes Interrupt
 
-  printf(" INITIALIZED \n");
 
+  uint8_t microphone_msg;
   uint8_t pr_toggle = 0;
-  while(1){
-    if(pr_toggle != toggle){
-      printf("%d ", read_adc(0));
-      pr_toggle = toggle;
-    }
+  uint8_t count = 0;
+  i2c_address_receiv = 0;
 
+  DDRD = 0xFF;
+
+  _delay_ms(1000);
+  while(1){
+    // Toggle - manage the sampling frequency
+    if (count < 50){
+      if(pr_toggle != toggle){
+        pr_toggle = toggle;
+
+        // Get message from microphone
+        microphone_msg = read_adc(0);
+        printBits(sizeof(uint8_t), &microphone_msg);
+
+        // Transfer microphone message using SPI
+        spi_trans(0xAA);
+        count++;
+        _delay_ms(4000);
+      }
+    }
   }
 
 }
