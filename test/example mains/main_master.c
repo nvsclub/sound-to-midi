@@ -105,27 +105,20 @@ int main(void){
 
   uint8_t microphone_msg;
   uint8_t pr_toggle = 0;
-  uint8_t count = 0;
   i2c_address_receiv = 0;
 
   DDRD = 0xFF;
 
   _delay_ms(1000);
   while(1){
-    // Toggle - manage the sampling frequency
-    if (count < 50){
-      if(pr_toggle != toggle){
-        pr_toggle = toggle;
+    if(pr_toggle != toggle){
+      pr_toggle = toggle;
 
-        // Get message from microphone
-        microphone_msg = read_adc(0);
-        printBits(sizeof(uint8_t), &microphone_msg);
+      // Get message from microphone
+      microphone_msg = read_adc(0);
+      // Transfer microphone message using SPI
+      spi_trans(microphone_msg);
 
-        // Transfer microphone message using SPI
-        spi_trans(0xAA);
-        count++;
-        _delay_ms(4000);
-      }
     }
   }
 
