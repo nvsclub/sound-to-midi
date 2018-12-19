@@ -1,0 +1,6 @@
+eclipse.preferences.version=1
+environment/project/de.innot.avreclipse.configuration.app.release.1023801416/PATH/delimiter=;
+environment/project/de.innot.avreclipse.configuration.app.release.1023801416/PATH/operation=replace
+environment/project/de.innot.avreclipse.configuration.app.release.1023801416/PATH/value=C\:\\WinAVR-20100110\\bin;C\:\\WinAVR-20100110\\utils\\bin;C\:/Program Files/Java/jre1.8.0_191/bin/server;C\:/Program Files/Java/jre1.8.0_191/bin;C\:/Program Files/Java/jre1.8.0_191/lib/amd64;C\:\\Program Files (x86)\\Common Files\\Oracle\\Java\\javapath;C\:\\WINDOWS\\system32;C\:\\WINDOWS;C\:\\WINDOWS\\System32\\Wbem;C\:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C\:\\WINDOWS\\System32\\OpenSSH\\;C\:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C\:\\Program Files\\Git\\cmd;C\:\\Program Files\\Java\\jdk1.8.0_191\\bin;C\:\\Users\\nvs\\AppData\\Local\\Programs\\Python\\Python37\\Scripts\\;C\:\\Users\\nvs\\AppData\\Local\\Programs\\Python\\Python37\\;C\:\\Users\\nvs\\AppData\\Local\\Microsoft\\WindowsApps;;C\:\\Users\\nvs\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C\:\\Users\\nvs\\Desktop\\eclipse;C\:\\WinAVR-20100110\\avr\\include\\avr
+environment/project/de.innot.avreclipse.configuration.app.release.1023801416/append=true
+environment/project/de.innot.avreclipse.configuration.app.release.1023801416/appendContributed=true

@@ -1,0 +1,67 @@
+{
+    "!!! WARNING !!!": "PLEASE DO NOT MODIFY THIS FILE! USE https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags",
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "c:/Users/nvs/Desktop/sound-to-midi/src",
+                "C:/Users/nvs/.platformio/packages/framework-simba/build/arduino_uno/gen",
+                "C:/Users/nvs/.platformio/packages/framework-simba/src",
+                "C:/Users/nvs/.platformio/packages/framework-simba/src/boards/arduino_uno",
+                "C:/Users/nvs/.platformio/packages/framework-simba/src/mcus/atmega328p",
+                "C:/Users/nvs/.platformio/packages/framework-simba/3pp/compat",
+                "C:/Users/nvs/.platformio/packages/framework-simba/src/drivers/ports/avr",
+                "C:/Users/nvs/.platformio/packages/framework-simba/3pp/lwip-1.4.1/src/include",
+                "C:/Users/nvs/.platformio/packages/framework-simba/3pp/lwip-1.4.1/src/include/ipv4",
+                "C:/Users/nvs/.platformio/packages/framework-simba/3pp/mbedtls/include",
+                "C:/Users/nvs/.platformio/packages/framework-simba/src/kernel/ports/avr/gnu",
+                "C:/Users/nvs/.platformio/packages/framework-simba/src/oam/ports/avr",
+                "C:/Users/nvs/.platformio/packages/framework-simba/3pp/spiffs-0.3.5/src",
+                "C:/Users/nvs/.platformio/packages/tool-unity",
+                "c:/Users/nvs/Desktop/sound-to-midi/include",
+                ""
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": "${workspaceRoot}/.vscode/.browse.c_cpp.db",
+                "path": [
+                    "c:/Users/nvs/Desktop/sound-to-midi/src",
+                    "C:/Users/nvs/.platformio/packages/framework-simba/build/arduino_uno/gen",
+                    "C:/Users/nvs/.platformio/packages/framework-simba/src",
+                    "C:/Users/nvs/.platformio/packages/framework-simba/src/boards/arduino_uno",
+                    "C:/Users/nvs/.platformio/packages/framework-simba/src/mcus/atmega328p",
+                    "C:/Users/nvs/.platformio/packages/framework-simba/3pp/compat",
+                    "C:/Users/nvs/.platformio/packages/framework-simba/src/drivers/ports/avr",
+                    "C:/Users/nvs/.platformio/packages/framework-simba/3pp/lwip-1.4.1/src/include",
+                    "C:/Users/nvs/.platformio/packages/framework-simba/3pp/lwip-1.4.1/src/include/ipv4",
+                    "C:/Users/nvs/.platformio/packages/framework-simba/3pp/mbedtls/include",
+                    "C:/Users/nvs/.platformio/packages/framework-simba/src/kernel/ports/avr/gnu",
+                    "C:/Users/nvs/.platformio/packages/framework-simba/src/oam/ports/avr",
+                    "C:/Users/nvs/.platformio/packages/framework-simba/3pp/spiffs-0.3.5/src",
+                    "C:/Users/nvs/.platformio/packages/tool-unity",
+                    "c:/Users/nvs/Desktop/sound-to-midi/include",
+                    ""
+                ]
+            },
+            "defines": [
+                "PLATFORMIO=30603",
+                "ARDUINO_AVR_UNO",
+                "F_CPU=16000000L",
+                "ARCH_AVR",
+                "FAMILY_AVR",
+                "MCU_ATMEGA328P",
+                "BOARD_ARDUINO_UNO",
+                "VERSION=15.0.3",
+                "MBEDTLS_USER_CONFIG_FILE=\"\"mbedtls/user_config.h\"\"",
+                "__DELAY_BACKWARD_COMPATIBLE__",
+                "__AVR_ATmega328P__",
+                ""
+            ],
+            "intelliSenseMode": "clang-x64",
+            "cStandard": "c99",
+            "cppStandard": "c++11",
+            "compilerPath": "C:/Users/nvs/.platformio/packages/toolchain-atmelavr/bin/avr-gcc.exe -mmcu=atmega328p"
+        }
+    ],
+    "version": 4
+}
