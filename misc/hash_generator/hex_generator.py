@@ -1,7 +1,7 @@
 from intelhex import IntelHex
 
 ih = IntelHex()
-ih.fromfile('sound-to-mid_slave.hex', format = 'hex')
+ih.fromfile('sound-to-mid_master.hex', format = 'hex')
 pydict = ih.todict()
 
 hash = 0

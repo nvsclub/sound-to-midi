@@ -13,7 +13,16 @@
 ISR(SPI_STC_vect){
   unsigned char data;
   data = spi_receiv();
-  spi_manage(data, spi_address, spi_databuffer);
+  /* Stores data in buffer */
+    if (spi_address < 255){
+      spi_databuffer[spi_address] = data;
+      spi_address++;
+    }
+    else if(spi_databuffer[254] == 0){
+      spi_address = 0;
+      spi_databuffer[spi_address] = data;
+      spi_address++;
+    }
 }
 
 /* MODULE FUNCTION
@@ -29,7 +38,7 @@ ISR(SPI_STC_vect){
 int main (void){
 
 #if(1 == SETUP_HASH)
-  update_og_flash_hash(0x2C);
+  update_og_flash_hash(0xF1);
   sign_uc();
 #endif
 
@@ -49,7 +58,8 @@ int main (void){
   if(sram_test())
 	  printf("SRAM test found defects in section %d\n", sram_test());
   else
-	  printf("SRAM test without anomalies");
+	  printf("SRAM test without anomalies\n");
+  printf("Signature is %x\n", check_sign());
 
 #endif
 
@@ -114,7 +124,7 @@ int main (void){
   while(1){
 
     /* IF ALL SAMPLES HAVE BEEN SENT BY MASTER */
-    if (spi_databuffer[254] != 0){
+    if (spi_databuffer[244] != 0 || spi_databuffer[245] != 0 || spi_databuffer[246] != 0){
 
 #if(1 == DEBUG_PRINTF)
 

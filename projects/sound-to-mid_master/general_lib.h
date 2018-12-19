@@ -55,19 +55,19 @@ volatile uint8_t spi_databuffer[254] = {0};
 /* PRINTS VARIABLE IN BITS */
 void printBits(size_t const size, void const * const ptr){
 
-  unsigned char *b = (unsigned char*) ptr;
-  unsigned char byte;
-  int i, j;
+    unsigned char *b = (unsigned char*) ptr;
+    unsigned char byte;
+    int i, j;
 
-  for (i=size-1;i>=0;i--){
-    for (j=7;j>=0;j--)
-    {
-      byte = (b[i] >> j) & 1;
-      printf("%u", byte);
+    for (i=size-1;i>=0;i--){
+        for (j=7;j>=0;j--)
+        {
+            byte = (b[i] >> j) & 1;
+            printf("%u", byte);
+        }
     }
+    puts("");
   }
-  puts("");
-}
 
 
 /* TURN ON LEDS ACCORDING TO MIDI MESSAGE */
@@ -80,20 +80,20 @@ void turnLeds(uint8_t data){
   else{
 
 #if(1 == DEBUG_PRINTF)
-  printf("GOT DATA I2C: ");
-  printBits(sizeof(uint8_t), &data);
-  printf("\n");
+    printf("GOT DATA I2C: ");
+    printBits(sizeof(uint8_t), &data);
+    printf("\n");
 #endif
 
-  if (data == 0xFF){
-    PORTD = 0xFC;
-  }
-  else{
-    PORTD = data;
-  }
-  I2C_flag = 0;
+    if (data == 0xFF){
+      PORTD = 0xFC;
+    }
+    else{
+      PORTD = data;
+    }
+    I2C_flag = 0;
 
-}
+  }
 
   return;
 }

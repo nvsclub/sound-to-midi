@@ -17,6 +17,8 @@
  * SPIE  - SPI INTERRUPT ENABLE
  * */
 
+
+
 /* SETS INITIALIZATION FOR MASTER DEVICE */
 void spi_init_master (void);
 
@@ -30,4 +32,4 @@ void spi_trans (uint8_t data);
 unsigned char spi_receiv(void);
 
 /* MANAGE DATA RECEIVED FROM SPI CONNECTION */
-void spi_manage(uint8_t data, uint8_t spi_address, uint8_t spi_databuffer[254]);
+void spi_manage(uint8_t data, uint8_t spi_address, uint8_t spi_databuffer[]);

@@ -63,7 +63,7 @@ uint8_t i2c_read_w_ack(void);
 uint8_t i2c_read_w_nack(void);
 
 /* READS DATA FROM SLAVE WITH ACKNOWLEDGE - SLAVE ONLY */
-void i2c_slave_receive(uint8_t data, uint8_t i2c_address_receiv, uint8_t i2c_databuffer[255]);
+void i2c_slave_receive();
 
 /* HANDLES SENDING MIDI MESSAGES */
 void i2c_handler(uint16_t midi_msg);

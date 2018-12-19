@@ -3,7 +3,8 @@
 #include <stdint.h>
 #include <avr/pgmspace.h>
 
-#define no_bytes_flashed 9684U
+#define no_bytes_flashed 9338U
+#define DEBUG_PRINTF 0
 
 /* Calculates an hash of the program binary
  * by doing the bitwise XOR between every byte~
@@ -26,6 +27,10 @@ uint8_t test_flash_memory(uint8_t og_code_hash){
   }
   /* If something is wrong */
   else{
+#if(1 == DEBUG_PRINTF)
+	  printf("Hash generated: %x vs Original: %x\n", code_hash, og_code_hash);
+#endif
+
     return 1;
   }
 

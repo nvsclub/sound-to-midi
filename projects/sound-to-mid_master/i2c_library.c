@@ -5,7 +5,6 @@ void i2c_init_master(void){
 
   TWSR = 0x00;                /* SETS REGISTER TO 0 */
   TWBR = (uint8_t) TWBR_val;  /* CHECK DEFINES */
-
 }
 
 /* INITIALIZES MASTER FOR I2C CONNECTION */
@@ -13,23 +12,19 @@ void i2c_init_slave(void){
 
   TWAR = I2C_ADDRESS;     /* SETS SLAVE ADDRESS */
   TWCR = (1<<TWEN)|(1<<TWEA)|(1<<TWINT)|(1<<TWIE);
-
 }
 
 
 /* STOPS MASTER CONNECTION */
 void i2c_stop_master(void){
-  
+
   /* STOPS TRANSMISSION */
   TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWSTO);
-
 }
 
 /* STOPS SLAVE CONNECTION */
 void i2c_stop_slave(void){
-
   TWCR &= ~((1<<TWEA)|(1<<TWEN));
-
 }
 
 /* START I2C COMMUNICATION BETWEEN MODULES - MASTER ONLY */
@@ -144,20 +139,12 @@ uint8_t i2c_read_w_nack(void){
 }
 
 /* READS DATA FROM SLAVE WITH ACKNOWLEDGE - SLAVE ONLY */
-void i2c_slave_receive(uint8_t data, uint8_t i2c_address_receiv, uint8_t i2c_databuffer[255]){
+void i2c_slave_receive(){
 
-  /* CHECKS IF BUFFER IS EMPTY */
-  if (i2c_address_receiv < 0xFF){
-    i2c_databuffer[i2c_address_receiv] = data;
-    i2c_address_receiv++;
-    TWCR |= (1<<TWIE) | (1<<TWINT) | (1<<TWEA) | (1<<TWEN);
-  }
+  TWCR |= (1<<TWIE) | (1<<TWINT) | (1<<TWEA) | (1<<TWEN);
 
-  else{
-    i2c_databuffer[i2c_address_receiv] = data;
-    i2c_address_receiv = 0;
-    TWCR |= (1<<TWIE) | (1<<TWINT) | (1<<TWEA) | (1<<TWEN);
-  }
+  return;
+
 }
 
 void i2c_handler(uint16_t midi_msg){
@@ -168,8 +155,6 @@ void i2c_handler(uint16_t midi_msg){
   /* Send 1st byte of MIDI message */
   i2c_write(split);
   i2c_stop_master();
-
-  _delay_ms(5);
 
   i2c_start(I2C_ADDRESS & I2C_WRITE, 0x00);
   split = (midi_msg & 0x00FF);

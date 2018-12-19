@@ -9,17 +9,17 @@ c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
                               ./main.o (__do_clear_bss)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
-                              ./i2c_library.o (__fixunssfsi)
+                              ./main.o (__fixunssfsi)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
                               c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o) (__subsf3)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
-                              ./i2c_library.o (__mulsf3)
+                              ./main.o (__mulsf3)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_gt_sf.o)
-                              ./i2c_library.o (__gtsf2)
+                              ./main.o (__gtsf2)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
                               c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o) (__gesf2)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
-                              ./i2c_library.o (__ltsf2)
+                              ./main.o (__ltsf2)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
                               c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o) (__fixsfsi)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_thenan_sf.o)
@@ -186,7 +186,7 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x2c74
+.text           0x00000000     0x2bc2
  *(.vectors)
  .vectors       0x00000000       0x68 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
                 0x00000000                __vectors
@@ -347,115 +347,115 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
                 0x00000dc2       0x76 ./i2c_library.o
                 0x00000dc2                i2c_slave_receive
  .text.i2c_handler
-                0x00000e38      0x140 ./i2c_library.o
+                0x00000e38       0x4e ./i2c_library.o
                 0x00000e38                i2c_handler
  .text.uart_putchar
-                0x00000f78       0x3c ./main.o
+                0x00000e86       0x3c ./main.o
  .text.init_printf_tools
-                0x00000fb4       0x1a ./main.o
+                0x00000ec2       0x1a ./main.o
  .text.printBits
-                0x00000fce       0xc4 ./main.o
-                0x00000fce                printBits
+                0x00000edc       0xc4 ./main.o
+                0x00000edc                printBits
  .text.turnLeds
-                0x00001092       0x3e ./main.o
-                0x00001092                turnLeds
+                0x00000fa0       0x3e ./main.o
+                0x00000fa0                turnLeds
  .text.__vector_17
-                0x000010d0       0x6c ./main.o
-                0x000010d0                __vector_17
- .text.main     0x0000113c      0xcc2 ./main.o
-                0x0000113c                main
- .text.sign_uc  0x00001dfe       0x32 ./mem_eeprom_test.o
-                0x00001dfe                sign_uc
+                0x00000fde       0xa8 ./main.o
+                0x00000fde                __vector_17
+ .text.main     0x00001086      0xcc6 ./main.o
+                0x00001086                main
+ .text.sign_uc  0x00001d4c       0x32 ./mem_eeprom_test.o
+                0x00001d4c                sign_uc
  .text.check_sign
-                0x00001e30       0x16 ./mem_eeprom_test.o
-                0x00001e30                check_sign
+                0x00001d7e       0x16 ./mem_eeprom_test.o
+                0x00001d7e                check_sign
  .text.get_og_flash_hash
-                0x00001e46       0x16 ./mem_eeprom_test.o
-                0x00001e46                get_og_flash_hash
+                0x00001d94       0x16 ./mem_eeprom_test.o
+                0x00001d94                get_og_flash_hash
  .text.update_og_flash_hash
-                0x00001e5c       0x24 ./mem_eeprom_test.o
-                0x00001e5c                update_og_flash_hash
+                0x00001daa       0x24 ./mem_eeprom_test.o
+                0x00001daa                update_og_flash_hash
  .text.test_flash_memory
-                0x00001e80       0x74 ./mem_flash_test.o
-                0x00001e80                test_flash_memory
+                0x00001dce       0x74 ./mem_flash_test.o
+                0x00001dce                test_flash_memory
  .text.sram_test
-                0x00001ef4       0x3a ./mem_sram_test.o
-                0x00001ef4                sram_test
+                0x00001e42       0x3a ./mem_sram_test.o
+                0x00001e42                sram_test
  .text.classb_sram_test
-                0x00001f2e       0xf2 ./mem_sram_test.o
-                0x00001f2e                classb_sram_test
+                0x00001e7c       0xf2 ./mem_sram_test.o
+                0x00001e7c                classb_sram_test
  .text.classb_marchX
-                0x00002020      0x442 ./mem_sram_test.o
-                0x00002020                classb_marchX
+                0x00001f6e      0x442 ./mem_sram_test.o
+                0x00001f6e                classb_marchX
  .text.init_adc
-                0x00002462       0x38 ./microphone.o
-                0x00002462                init_adc
+                0x000023b0       0x38 ./microphone.o
+                0x000023b0                init_adc
  .text.read_adc
-                0x0000249a       0x5a ./microphone.o
-                0x0000249a                read_adc
+                0x000023e8       0x5a ./microphone.o
+                0x000023e8                read_adc
  .text.spi_init_master
-                0x000024f4       0x24 ./spi_library.o
-                0x000024f4                spi_init_master
+                0x00002442       0x24 ./spi_library.o
+                0x00002442                spi_init_master
  .text.spi_init_slave
-                0x00002518       0x24 ./spi_library.o
-                0x00002518                spi_init_slave
+                0x00002466       0x24 ./spi_library.o
+                0x00002466                spi_init_slave
  .text.spi_trans
-                0x0000253c       0x26 ./spi_library.o
-                0x0000253c                spi_trans
+                0x0000248a       0x26 ./spi_library.o
+                0x0000248a                spi_trans
  .text.spi_receiv
-                0x00002562       0x14 ./spi_library.o
-                0x00002562                spi_receiv
+                0x000024b0       0x14 ./spi_library.o
+                0x000024b0                spi_receiv
  .text.spi_manage
-                0x00002576       0x70 ./spi_library.o
-                0x00002576                spi_manage
- .text.libgcc   0x000025e6       0x26 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
-                0x000025e6                __divmodhi4
-                0x000025e6                _div
- .text.libgcc   0x0000260c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
- .text.libgcc   0x0000260c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
- .text.libgcc   0x0000260c        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
- .text.libgcc   0x0000260c       0x28 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
-                0x0000260c                __udivmodhi4
- .text.libgcc   0x00002634       0x38 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
-                0x00002634                __prologue_saves__
- .text.libgcc   0x0000266c       0x36 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
-                0x0000266c                __epilogue_restores__
+                0x000024c4       0x70 ./spi_library.o
+                0x000024c4                spi_manage
+ .text.libgcc   0x00002534       0x26 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodhi4.o)
+                0x00002534                __divmodhi4
+                0x00002534                _div
+ .text.libgcc   0x0000255a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x0000255a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc   0x0000255a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc   0x0000255a       0x28 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodhi4.o)
+                0x0000255a                __udivmodhi4
+ .text.libgcc   0x00002582       0x38 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
+                0x00002582                __prologue_saves__
+ .text.libgcc   0x000025ba       0x36 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
+                0x000025ba                __epilogue_restores__
  .text.avr-libc
-                0x000026a2       0x2a c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(printf.o)
-                0x000026a2                printf
+                0x000025f0       0x2a c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(printf.o)
+                0x000025f0                printf
  .text.avr-libc
-                0x000026cc       0x6a c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(puts.o)
-                0x000026cc                puts
+                0x0000261a       0x6a c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(puts.o)
+                0x0000261a                puts
  .text.avr-libc
-                0x00002736      0x3ba c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(vfprintf_std.o)
-                0x00002736                vfprintf
+                0x00002684      0x3ba c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(vfprintf_std.o)
+                0x00002684                vfprintf
  .text.avr-libc
-                0x00002af0       0x10 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(eerd_byte_atmega328p.o)
-                0x00002af0                __eerd_byte_m328p
+                0x00002a3e       0x10 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(eerd_byte_atmega328p.o)
+                0x00002a3e                __eerd_byte_m328p
  .text.avr-libc
-                0x00002b00       0x24 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(eeupd_byte_atmega328p.o)
-                0x00002b00                __eeupd_byte_m328p
-                0x00002b02                __eeupd_r18_m328p
+                0x00002a4e       0x24 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(eeupd_byte_atmega328p.o)
+                0x00002a4e                __eeupd_byte_m328p
+                0x00002a50                __eeupd_r18_m328p
  .text.avr-libc
-                0x00002b24        0xc c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(eeupd_word_atmega328p.o)
-                0x00002b24                __eeupd_word_m328p
+                0x00002a72        0xc c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(eeupd_word_atmega328p.o)
+                0x00002a72                __eeupd_word_m328p
  .text.avr-libc
-                0x00002b30       0x16 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strnlen_P.o)
-                0x00002b30                strnlen_P
+                0x00002a7e       0x16 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strnlen_P.o)
+                0x00002a7e                strnlen_P
  .text.avr-libc
-                0x00002b46       0x16 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strnlen.o)
-                0x00002b46                strnlen
+                0x00002a94       0x16 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(strnlen.o)
+                0x00002a94                strnlen
  .text.avr-libc
-                0x00002b5c       0x58 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(fputc.o)
-                0x00002b5c                fputc
+                0x00002aaa       0x58 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(fputc.o)
+                0x00002aaa                fputc
  .text.avr-libc
-                0x00002bb4       0xbc c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa_invert.o)
-                0x00002bb4                __ultoa_invert
-                0x00002c70                . = ALIGN (0x2)
+                0x00002b02       0xbc c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(ultoa_invert.o)
+                0x00002b02                __ultoa_invert
+                0x00002bbe                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00002c70        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
-                0x00002c70                exit
-                0x00002c70                _exit
+ .fini9         0x00002bbe        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                0x00002bbe                exit
+                0x00002bbe                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -474,11 +474,11 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00002c70        0x4 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .fini0         0x00002bbe        0x4 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00002c74                _etext = .
+                0x00002bc2                _etext = .
 
-.data           0x00800240       0xaa load address 0x00002c74
+.data           0x00800240       0xaa load address 0x00002bc2
                 0x00800240                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800240        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
@@ -524,24 +524,24 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
                 0x0080024c        0xe ./main.o
  *(.rodata)
  *(.rodata*)
- .rodata.C.8.1661
+ .rodata.C.14.1675
                 0x0080025a       0x18 ./main.o
- .rodata.C.7.1660
+ .rodata.C.13.1674
                 0x00800272       0x18 ./main.o
- .rodata.C.6.1659
+ .rodata.C.12.1673
                 0x0080028a       0x18 ./main.o
- .rodata.C.5.1658
+ .rodata.C.11.1672
                 0x008002a2       0x18 ./main.o
- .rodata.C.4.1657
+ .rodata.C.10.1671
                 0x008002ba       0x18 ./main.o
- .rodata.C.3.1656
+ .rodata.C.9.1670
                 0x008002d2       0x18 ./main.o
  *(.gnu.linkonce.d*)
                 0x008002ea                . = ALIGN (0x2)
                 0x008002ea                _edata = .
                 0x008002ea                PROVIDE (__data_end, .)
 
-.bss            0x008002ea      0x20b
+.bss            0x008002ea      0x20d
                 0x008002ea                PROVIDE (__bss_start, .)
  *(.bss)
  .bss           0x008002ea        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
@@ -585,34 +585,34 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
  .bss.timer     0x008002ea        0x2 ./main.o
                 0x008002ea                timer
  .bss.i2c_databuffer
-                0x008002ec       0xfe ./main.o
+                0x008002ec       0xff ./main.o
                 0x008002ec                i2c_databuffer
- .bss.I2C_flag  0x008003ea        0x1 ./main.o
-                0x008003ea                I2C_flag
+ .bss.I2C_flag  0x008003eb        0x1 ./main.o
+                0x008003eb                I2C_flag
  .bss.spi_databuffer
-                0x008003eb       0xfe ./main.o
-                0x008003eb                spi_databuffer
+                0x008003ec       0xff ./main.o
+                0x008003ec                spi_databuffer
  .bss.current_section.1234
-                0x008004e9        0x1 ./mem_sram_test.o
+                0x008004eb        0x1 ./mem_sram_test.o
  *(COMMON)
- COMMON         0x008004ea        0x3 ./main.o
-                0x008004ea                spi_address
-                0x008004eb                i2c_address_send
-                0x008004ec                i2c_address_receiv
- COMMON         0x008004ed        0x2 ./mem_eeprom_test.o
-                0x008004ed                eeprom_pointer
- COMMON         0x008004ef        0x6 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(iob.o)
-                0x008004ef                __iob
-                0x008004f5                PROVIDE (__bss_end, .)
-                0x00002c74                __data_load_start = LOADADDR (.data)
-                0x00002d1e                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x008004ec        0x3 ./main.o
+                0x008004ec                spi_address
+                0x008004ed                i2c_address_send
+                0x008004ee                i2c_address_receiv
+ COMMON         0x008004ef        0x2 ./mem_eeprom_test.o
+                0x008004ef                eeprom_pointer
+ COMMON         0x008004f1        0x6 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a(iob.o)
+                0x008004f1                __iob
+                0x008004f7                PROVIDE (__bss_end, .)
+                0x00002bc2                __data_load_start = LOADADDR (.data)
+                0x00002c6c                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x008004f5        0x0
-                0x008004f5                PROVIDE (__noinit_start, .)
+.noinit         0x008004f7        0x0
+                0x008004f7                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x008004f5                PROVIDE (__noinit_end, .)
-                0x008004f5                _end = .
-                0x008004f5                PROVIDE (__heap_start, .)
+                0x008004f7                PROVIDE (__noinit_end, .)
+                0x008004f7                _end = .
+                0x008004f7                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)

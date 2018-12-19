@@ -55,28 +55,31 @@ ISR(TWI_vect){
   uint8_t data; /*   Temporary variable to store data */
   ATOMIC_BLOCK(ATOMIC_FORCEON){
 
-  /*   REQUEST TO ACKNOWLEDGE */
-  if (((TWSR & TW_NO_INFO) == TW_SR_SLA_ACK) || ((TWSR & TW_NO_INFO) == TW_SR_ARB_LOST_SLA_ACK)){
-    TWCR |= (1<<TWIE)|(1<<TWINT)|(1<<TWEA)|(1<<TWEN);
-  }
-  /*   REQUEST TO TRANSMITT DATA */
-  else if (((TWSR & TW_NO_INFO) == TW_ST_SLA_ACK) || ((TWSR & TW_NO_INFO) == TW_SR_ARB_LOST_SLA_ACK)){
-    data = TWDR;
-    i2c_slave_trans(data, i2c_address_send, i2c_databuffer);
-  }
+	  /*   REQUEST TO ACKNOWLEDGE */
+	  if (((TWSR & TW_NO_INFO) == TW_SR_SLA_ACK) || ((TWSR & TW_NO_INFO) == TW_SR_ARB_LOST_SLA_ACK)){
+		TWCR |= (1<<TWIE)|(1<<TWINT)|(1<<TWEA)|(1<<TWEN);
+	  }
+	  /*   REQUEST TO TRANSMITT DATA */
+	  else if (((TWSR & TW_NO_INFO) == TW_ST_SLA_ACK) || ((TWSR & TW_NO_INFO) == TW_SR_ARB_LOST_SLA_ACK)){
+		data = TWDR;
+		i2c_slave_trans(data, i2c_address_send, i2c_databuffer);
+	  }
 
-  /*   REQUEST TO RECEIVE DATA */
-  else if ((TWSR & TW_NO_INFO) == TW_SR_DATA_ACK){
-    data = TWDR;
-    i2c_slave_receive(data, i2c_address_receiv, i2c_databuffer);
-    if (I2C_flag == 1){
-      turnLeds(data);
-    }
-  }
+	  /*   REQUEST TO RECEIVE DATA */
+	  else if ((TWSR & TW_NO_INFO) == TW_SR_DATA_ACK){
+		data = TWDR;
 
-  else{
-    TWCR |= (1<<TWIE) | (1<<TWEA) | (1<<TWEN);
-  }
+		i2c_slave_receive();
+
+		if (I2C_flag == 1){
+		  turnLeds(data);
+		}
+	  }
+
+	  else{
+		TWCR |= (1<<TWIE) | (1<<TWEA) | (1<<TWEN);
+	  }
+
   }
 }
 
@@ -94,7 +97,7 @@ ISR(TWI_vect){
 int main(void){
 
 #if(1 == SETUP_HASH)
-  update_og_flash_hash(0x0E);
+  update_og_flash_hash(0x58);
   sign_uc();
 #endif
 
@@ -108,13 +111,15 @@ int main(void){
   printf("Serial interface initialized\n");
   printf("Initializing memory tests: \n");
   if(test_flash_memory(get_og_flash_hash()))
-	  printf("Flash test without anomalies\n");
+  	  printf("Flash test found errors in binary\n");
   else
-	  printf("Flash test found errors in binary\n");
+	  printf("Flash test without anomalies\n");
+
   if(sram_test())
 	  printf("SRAM test found defects in section %d\n", sram_test());
   else
-	  printf("SRAM test without anomalies");
+	  printf("SRAM test without anomalies\n");
+  printf("Signature is %x\n", check_sign());
 
 #endif
 
