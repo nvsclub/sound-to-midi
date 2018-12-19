@@ -159,87 +159,87 @@ uint8_t classb_marchX(register volatile uint8_t * p_sram, register volatile uint
 	 * */
 
 	/* increase address: w0 */
-	  for(i = 0; i < size; i++){
-	    *(p_sram+i) = 0x00;
+	for(i = 0; i < size; i++){
+		*(p_sram+i) = 0x00;
 
-	  }
+	}
 
-	  /* increase address: r0,w1,r1,w0,r0,w1*/
-	  for(i = 0; i < size; i++){
-	    /* r0 */
-	    if (*(p_sram+i) != 0x00)
-	      error++;
+	/* increase address: r0,w1,r1,w0,r0,w1*/
+	for(i = 0; i < size; i++){
+		/* r0 */
+		if (*(p_sram+i) != 0x00)
+			error++;
 
-	    /* w1 */
-	    else
-	      *(p_sram+i) = 0xFF;
+		/* w1 */
+		else
+			*(p_sram+i) = 0xFF;
 
-	    /* r1 */
-	    if (*(p_sram+i) != 0xFF)
-	      error++;
+		/* r1 */
+		if (*(p_sram+i) != 0xFF)
+			error++;
 
-	    /* w0 */
-	    else
-	      *(p_sram+i) = 0x00;
+		/* w0 */
+		else
+			*(p_sram+i) = 0x00;
 
-	    /* r0 */
-	    if (*(p_sram+i) != 0x00)
-	      error++;
+		/* r0 */
+		if (*(p_sram+i) != 0x00)
+			error++;
 
-	    /* w1 */
-	    else
-	      *(p_sram+i) = 0xFF;
+		/* w1 */
+		else
+			*(p_sram+i) = 0xFF;
 
-	  }
+	}
 
-	  /* increase address: r1,w0,w1 */
-	  for(i = 0; i < size; i++){
-	    /* r1 */
-	    if (*(p_sram+i) != 0xFF)
-	      error++;
+	/* increase address: r1,w0,w1 */
+	for(i = 0; i < size; i++){
+		/* r1 */
+		if (*(p_sram+i) != 0xFF)
+			error++;
 
-	    /* w0
-	     * w1 */
-	    else{
-	      *(p_sram+i) = 0x00;
-	      *(p_sram+i) = 0xFF;
-	    }
-
-
-	  }
-
-	  /* decrease address: r1,w0,w1,w0 */
-	  for(i = size - 1; i > 0; i--){
-	    /* r1 */
-	    if (*(p_sram+i) != 0xFF)
-	      error++;
-
-	    /* w0
-	     * w1
-	     * w0 */
-	    else{
-	      *(p_sram+i) = 0x00;
-	      *(p_sram+i) = 0xFF;
-	      *(p_sram+i) = 0x00;
-	    }
+		/* w0
+			* w1 */
+		else{
+			*(p_sram+i) = 0x00;
+			*(p_sram+i) = 0xFF;
+		}
 
 
-	  }
+	}
 
-	  /* decrease address: r0,w1,w0 */
-	  for(i = size - 1; i > 0; i--){
-	    /* r0 */
-	    if (*(p_sram+i) != 0x00)
-	      error++;
+	/* decrease address: r1,w0,w1,w0 */
+	for(i = size - 1; i > 0; i--){
+		/* r1 */
+		if (*(p_sram+i) != 0xFF)
+			error++;
 
-	    /* w1
-	     * w0 */
-	    else{
-	      *(p_sram+i) = 0xFF;
-	      *(p_sram+i) = 0x00;
-	    }
+		/* w0
+			* w1
+			* w0 */
+		else{
+			*(p_sram+i) = 0x00;
+			*(p_sram+i) = 0xFF;
+			*(p_sram+i) = 0x00;
+		}
 
-	  }
+
+	}
+
+	/* decrease address: r0,w1,w0 */
+	for(i = size - 1; i > 0; i--){
+		/* r0 */
+		if (*(p_sram+i) != 0x00)
+			error++;
+
+		/* w1
+			* w0 */
+		else{
+			*(p_sram+i) = 0xFF;
+			*(p_sram+i) = 0x00;
+		}
+
+	}
 
 	/*
 	 *
@@ -248,68 +248,68 @@ uint8_t classb_marchX(register volatile uint8_t * p_sram, register volatile uint
 	 *
 	 * */
 
-	  /* increase address: w0 */
-	    for(i = 0; i < size; i++){
-	      *(p_sram+i) = 0x00;
+	/* increase address: w0 */
+	for(i = 0; i < size; i++){
+		*(p_sram+i) = 0x00;
 
-	    }
+	}
 
 
-	    /* increase address: r0,w1 */
-	    for(i = 0; i < size; i++){
-	      /* r0 */
-	      if (*(p_sram+i) != 0x00)
-	        error++;
+	/* increase address: r0,w1 */
+	for(i = 0; i < size; i++){
+		/* r0 */
+		if (*(p_sram+i) != 0x00)
+			error++;
 
-	      /* w1 */
-	      else
-	        *(p_sram+i) = 0xFF;
+		/* w1 */
+		else
+			*(p_sram+i) = 0xFF;
 
-	    }
+	}
 
-	    /* increase address: r1,w0 */
-	    for(i = 0; i < size; i++){
-	      /* r1 */
-	      if (*(p_sram+i) != 0xFF)
-	        error++;
+	/* increase address: r1,w0 */
+	for(i = 0; i < size; i++){
+		/* r1 */
+		if (*(p_sram+i) != 0xFF)
+			error++;
 
-	      /* w0 */
-	      else
-	        *(p_sram+i) = 0x00;
+		/* w0 */
+		else
+			*(p_sram+i) = 0x00;
 
-	    }
+	}
 
-	    /* decrease address: r0,w1 */
-	    for(i = size - 1; i > 0; i--){
-	      /* r0 */
-	      if (*(p_sram+i) != 0x00)
-	        error++;
+	/* decrease address: r0,w1 */
+	for(i = size - 1; i > 0; i--){
+		/* r0 */
+		if (*(p_sram+i) != 0x00)
+			error++;
 
-	      /* w1 */
-	      else
-	        *(p_sram+i) = 0xFF;
+		/* w1 */
+		else
+			*(p_sram+i) = 0xFF;
 
-	    }
+	}
 
-	    /* decrease address: r1,w0 */
-	    for(i = size - 1; i > 0; i--){
-	      /* r1 */
-	      if (*(p_sram+i) != 0xFF)
-	        error++;
+	/* decrease address: r1,w0 */
+	for(i = size - 1; i > 0; i--){
+		/* r1 */
+		if (*(p_sram+i) != 0xFF)
+			error++;
 
-	      /* w0 */
-	      else
-	        *(p_sram+i) = 0x00;
+		/* w0 */
+		else
+			*(p_sram+i) = 0x00;
 
-	    }
+	}
 
-	    /* decrease address: r0 */
-	    for(i = size - 1; i > 0; i--){
-	      /* r0 */
-	      if (*(p_sram+i) != 0x00)
-	        error++;
+	/* decrease address: r0 */
+	for(i = size - 1; i > 0; i--){
+		/* r0 */
+		if (*(p_sram+i) != 0x00)
+			error++;
 
-	    }
+	}
 
 
 	/* Restore the ram with the buffer content */

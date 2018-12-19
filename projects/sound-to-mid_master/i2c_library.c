@@ -5,6 +5,7 @@ void i2c_init_master(void){
 
   TWSR = 0x00;                /* SETS REGISTER TO 0 */
   TWBR = (uint8_t) TWBR_val;  /* CHECK DEFINES */
+
 }
 
 /* INITIALIZES MASTER FOR I2C CONNECTION */
@@ -12,19 +13,23 @@ void i2c_init_slave(void){
 
   TWAR = I2C_ADDRESS;     /* SETS SLAVE ADDRESS */
   TWCR = (1<<TWEN)|(1<<TWEA)|(1<<TWINT)|(1<<TWIE);
+
 }
 
 
 /* STOPS MASTER CONNECTION */
 void i2c_stop_master(void){
-
+  
   /* STOPS TRANSMISSION */
   TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWSTO);
+
 }
 
 /* STOPS SLAVE CONNECTION */
 void i2c_stop_slave(void){
+
   TWCR &= ~((1<<TWEA)|(1<<TWEN));
+
 }
 
 /* START I2C COMMUNICATION BETWEEN MODULES - MASTER ONLY */
